@@ -10,6 +10,10 @@ function App() {
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isGameover, setIsGameover] = useState(true);
+  const [score, setScore] = useState(0);
+  const [number, setNumber] = useState(0);
+  const [userAnswer, setUserAnswer] = useState([]);
 
   const startTrivia = async () => {
 
