@@ -1,9 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import Card from './components/Card';
+import {Difficulty, fetchQuizQuestions} from './Api';
 
+const TOTAL_QUESTIONS: number = 10;
 
 function App() {
+
+  const [questions, setQuestions] = useState([]);
+  const [answers, setAnswers] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const startTrivia = async () => {
 
@@ -16,6 +22,8 @@ function App() {
   const nextQuestion = () => {
 
   };
+
+  console.log(fetchQuizQuestions(TOTAL_QUESTIONS, Difficulty.EASY));
 
   return (
     <div className="App">
