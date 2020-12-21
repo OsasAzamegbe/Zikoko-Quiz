@@ -1,23 +1,34 @@
 import React from 'react';
 
 type Props = {
-    question?: string;
-    answer?: string[];
-    callback?: any;
-    userAnswer?: string;
-    questionNumber?: number;
-    totalQuestions?: number;
+    question: string;
+    answers: string[];
+    callback: any;
+    userAnswers: string[];
+    questionNumber: number;
+    totalQuestions: number;
 }
 
 const Card: React.FC<Props> = ({
-    question, answer,
-    callback, userAnswer,
+    question, answers,
+    callback, userAnswers,
     questionNumber, totalQuestions
 }) => {
 
     return (
         <div>
-            Card
+            <p className="question-number">Question {questionNumber} / {totalQuestions}</p>
+            <p className="question">{question}</p>
+            {
+                answers.map((answer)=> (
+                <button 
+                onClick={callback} 
+                disabled={userAnswers.length === questionNumber ? true: false} 
+                value={answer[questionNumber]}>
+                    {answer[questionNumber]}
+                </button>))
+            }
+            
         </div>
     );
 };
