@@ -2,12 +2,14 @@ import React, {useState} from 'react';
 
 import Card from './components/Card';
 import {Difficulty, fetchQuizQuestions} from './Api';
+//types
+import {QuestionState} from './Api';
 
 const TOTAL_QUESTIONS: number = 10;
 
 function App() {
 
-  const [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState<QuestionState[]>([]);
   const [answers, setAnswers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isGameover, setIsGameover] = useState(true);
@@ -16,7 +18,15 @@ function App() {
   const [userAnswer, setUserAnswer] = useState([]);
 
   const startTrivia = async () => {
+    setIsLoading(true);
+    setIsGameover(false);
+    
+    const questions = await fetchQuizQuestions(TOTAL_QUESTIONS, Difficulty.EASY);
 
+    setQuestions(questions);
+    setIsLoading(false);
+    setNumber(0);
+    setScore(0);
   };
 
   const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
