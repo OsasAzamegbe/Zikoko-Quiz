@@ -18,16 +18,20 @@ function App() {
   const [userAnswers, setUserAnswers] = useState<string[]>([]);
 
   const startTrivia = async () => {
+    setIsGameover(false)
     setIsLoading(true);
-    setIsGameover(false);
+    setQuestionNumber(0);
+    setScore(0);
+    setQuestions([]);
+    setCorrectAnswers([]);
+    setUserAnswers([]);
     
     const questions = await fetchQuizQuestions(TOTAL_QUESTIONS, Difficulty.EASY);
+    console.log(questions);
     
     setCorrectAnswers(questions.map((question: QuestionState) => question.correct_answer))
     setQuestions(questions);
     setIsLoading(false);
-    setQuestionNumber(0);
-    setScore(0);
   };
 
   const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -41,26 +45,43 @@ function App() {
   const nextQuestion = () => {
     if (questionNumber === questions.length - 1) {
       setIsGameover(true)
-      setIsLoading(false);
-      setQuestionNumber(0);
-      setScore(0);
-      setQuestions([]);
-      setCorrectAnswers([]);
     } else{
       setQuestionNumber(prev => prev + 1);
     }    
   };
 
-  console.log(fetchQuizQuestions(TOTAL_QUESTIONS, Difficulty.EASY));
-
   return (
     <div className="App">
       <h1>Zikoko Quiz</h1>
-      <button className="start" onClick={startTrivia}>Start</button>
-      <p className="score">Score:</p>
-      <p>Loading Questions ... </p>
-      {/* <Card/> */}
-      <button className="next" onClick={nextQuestion}>Next Question</button>
+      {
+        isGameover ?
+        <button className="start" onClick={startTrivia}>Start</button>
+        : null
+      }
+      { isLoading ?
+        <p>Loading Questions ... </p>
+        : null
+      }
+      {
+        !isGameover && !isLoading ?
+        <div>
+          <p className="score">Score: {score}</p>
+          <Card
+          question={questions[questionNumber].question}
+          answers={correctAnswers}
+          userAnswers={userAnswers}
+          callback={checkAnswer}
+          questionNumber={questionNumber + 1}
+          totalQuestions={TOTAL_QUESTIONS}
+          />
+        </div>
+        : null
+      }
+      {
+        !isGameover && !isLoading && userAnswers.length !== TOTAL_QUESTIONS ?
+        <button className="next" onClick={nextQuestion}>Next Question</button>
+        : null
+      }
     </div>
   );
 };
