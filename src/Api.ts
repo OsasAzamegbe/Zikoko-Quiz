@@ -11,6 +11,7 @@ type Question = {
     correct_answer: string;
     difficulty: Difficulty;
     incorrect_answers: string[];
+    question: string;
     type: string;
 };
 
