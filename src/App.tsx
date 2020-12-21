@@ -35,7 +35,6 @@ function App() {
   };
 
   const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
     const answer = e.currentTarget.value;
     if (correctAnswers[questionNumber] === answer) setScore(prev => prev + 1);
 
@@ -68,7 +67,7 @@ function App() {
           <p className="score">Score: {score}</p>
           <Card
           question={questions[questionNumber].question}
-          answers={correctAnswers}
+          answers={questions[questionNumber].answers}
           userAnswers={userAnswers}
           callback={checkAnswer}
           questionNumber={questionNumber + 1}
@@ -78,7 +77,7 @@ function App() {
         : null
       }
       {
-        !isGameover && !isLoading && userAnswers.length !== TOTAL_QUESTIONS ?
+        !isGameover && !isLoading && userAnswers.length !== TOTAL_QUESTIONS && questionNumber === userAnswers.length - 1 ?
         <button className="next" onClick={nextQuestion}>Next Question</button>
         : null
       }

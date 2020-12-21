@@ -20,12 +20,13 @@ const Card: React.FC<Props> = ({
             <p className="question-number">Question {questionNumber} / {totalQuestions}</p>
             <p className="question">{question}</p>
             {
-                answers.map((answer)=> (
+                answers.map((answer, index)=> (
                 <button 
+                key={index}
                 onClick={callback} 
                 disabled={userAnswers.length === questionNumber ? true: false} 
-                value={answer[questionNumber]}>
-                    {answer[questionNumber]}
+                value={answer[questionNumber - 1]}>
+                    {answer[questionNumber - 1]}
                 </button>))
             }
             
