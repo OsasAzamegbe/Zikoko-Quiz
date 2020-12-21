@@ -16,8 +16,10 @@ function App() {
   const [score, setScore] = useState(0);
   const [questionNumber, setQuestionNumber] = useState(0);
   const [userAnswers, setUserAnswers] = useState<string[]>([]);
+  const [difficulty, setDifficulty] = useState<Difficulty>(Difficulty.EASY);
+  const [start, setStart] = useState(false);
 
-  const startTrivia = async () => {
+  const startQuiz = async () => {
     setIsGameover(false)
     setIsLoading(true);
     setQuestionNumber(0);
@@ -25,16 +27,16 @@ function App() {
     setQuestions([]);
     setCorrectAnswers([]);
     setUserAnswers([]);
+    setStart(true);
     
-    const questions = await fetchQuizQuestions(TOTAL_QUESTIONS, Difficulty.EASY);
-    console.log(questions);
+    const questions = await fetchQuizQuestions(TOTAL_QUESTIONS, difficulty);
     
     setCorrectAnswers(questions.map((question: QuestionState) => question.correct_answer))
     setQuestions(questions);
     setIsLoading(false);
   };
 
-  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>): void => {
     const answer = e.currentTarget.value;
     if (correctAnswers[questionNumber] === answer) setScore(prev => prev + 5);
 
@@ -43,18 +45,42 @@ function App() {
 
   const nextQuestion = () => {
     if (questionNumber === questions.length - 1) {
-      setIsGameover(true)
+      setIsGameover(true);
+      setStart(false);
     } else{
       setQuestionNumber(prev => prev + 1);
     }    
   };
 
+  const difficultyHandler = (e: React.MouseEvent<HTMLButtonElement>): void => {
+    const choice = e.currentTarget.value;
+    if (choice === Difficulty.MEDIUM) {
+      setDifficulty(Difficulty.MEDIUM);
+    } else if (choice === Difficulty.HARD){
+      setDifficulty(Difficulty.HARD);
+    } else{
+      setDifficulty(Difficulty.EASY);
+    }
+
+    setStart(true);
+  }
+
   return (
     <div className="App">
       <h1>Zikoko Quiz</h1>
       {
-        isGameover ?
-        <button className="start" onClick={startTrivia}>Start</button>
+        !start ?
+        <div className="difficulty">
+          <button value={Difficulty.EASY} onClick={difficultyHandler}>EASY</button>
+          <button value={Difficulty.MEDIUM} onClick={difficultyHandler}>MEDIUM</button>
+          <button value={Difficulty.HARD} onClick={difficultyHandler}>HARD</button>
+        </div>
+        : null
+
+      }
+      {
+        isGameover && start ?
+        <button className="start" onClick={startQuiz}>Start</button>
         : null
       }
       { isLoading ?
