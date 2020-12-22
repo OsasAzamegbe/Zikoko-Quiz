@@ -119,7 +119,7 @@ function App() {
       {
         isEnded ?
         <div className="end">
-          <p className="score">Your final score is <strong>{score} / {TOTAL_QUESTIONS * INCREMENT}</strong>!!!</p>
+          <p className="final-score">Your final score is <strong>{score} / {TOTAL_QUESTIONS * INCREMENT}</strong>!!!</p>
           <button onClick={retryHandler}>Retry</button>
         </div>
         : null

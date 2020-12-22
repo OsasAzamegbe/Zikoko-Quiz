@@ -27,11 +27,12 @@ html, body #root{
     align-items: center;
     flex-direction: column;
     height: 100%;
+    padding: 12px;
 }
 
 .App h1 {
     padding: 24px;
-    font-size: 3.5rem;
+    font-size: 3.2rem;
 }
 
 button{
@@ -96,4 +97,21 @@ strong{
 .loading{
     font-family: monospace, 'Courier New', Courier;
     font-size: 1.5rem;
+}
+
+.final-score{
+    font-size: 1.5rem;
+    margin: 36px 0;
+    font-family: monospace, 'Courier New', Courier;
+}
+
+
+@media screen and (max-width: 450px){
+    .final-score{
+        font-size: 1.2rem;
+    }
+
+    strong{
+        font-size: 1.5rem;
+    }
 }
