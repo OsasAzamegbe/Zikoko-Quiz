@@ -69,3 +69,20 @@ button:disabled:hover {
     align-items: center;
     flex-direction: column;
 }
+
+strong{
+    font-weight: bolder;
+    font-size: 1.75rem;
+}
+
+.end{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.loading{
+    font-family: monospace, 'Courier New', Courier;
+    font-size: 1.5rem;
+}

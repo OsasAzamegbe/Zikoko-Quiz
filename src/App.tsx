@@ -88,11 +88,11 @@ function App() {
       }
       {
         isGameover && start && !isEnded ?
-        <button className="start" onClick={startQuiz}>Start</button>
+        <button onClick={startQuiz}>Start</button>
         : null
       }
       { isLoading ?
-        <p>Loading Questions ... </p>
+        <p className="loading">Loading Questions ... </p>
         : null
       }
       {
@@ -112,14 +112,14 @@ function App() {
       }
       {
         !isGameover && !isLoading && questionNumber === userAnswers.length - 1 ?
-        <button className="next" onClick={nextQuestion}>Next Question</button>
+        <button onClick={nextQuestion}>Next Question</button>
         : null
       }
       {
         isEnded ?
-        <div>
-          <p className="end">Your final score is {score} / {TOTAL_QUESTIONS * INCREMENT}!!!</p>
-          <button className="retry" onClick={retryHandler}>Retry</button>
+        <div className="end">
+          <p className="score">Your final score is <strong>{score} / {TOTAL_QUESTIONS * INCREMENT}</strong>!!!</p>
+          <button onClick={retryHandler}>Retry</button>
         </div>
         : null
       }
