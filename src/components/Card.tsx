@@ -8,12 +8,13 @@ type Props = {
     userAnswers: string[];
     questionNumber: number;
     totalQuestions: number;
+    correctAnswers: string[];
 }
 
 const Card: React.FC<Props> = ({
     question, answers,
     callback, userAnswers,
-    questionNumber, totalQuestions
+    questionNumber, totalQuestions, correctAnswers
 }) => {
 
     return (
@@ -24,7 +25,13 @@ const Card: React.FC<Props> = ({
                 {
                     answers.map((answer, index)=> (
                     <button 
-                    className="options"
+                    className={`options ${
+                        userAnswers.length === questionNumber ? 
+                        correctAnswers[questionNumber - 1] === answer ?
+                            "green"
+                            : "red"
+                        : null
+                    }`}
                     key={index}
                     onClick={callback} 
                     disabled={userAnswers.length === questionNumber ? true: false} 

@@ -106,6 +106,7 @@ function App() {
           callback={checkAnswer}
           questionNumber={questionNumber + 1}
           totalQuestions={TOTAL_QUESTIONS}
+          correctAnswers={correctAnswers}
           />
         </div>
         : null
