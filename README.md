@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Zikoko Quiz App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Deployed to: https://zikoko.netlify.app/
 
 ## Available Scripts
 
