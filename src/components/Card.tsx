@@ -22,6 +22,7 @@ const Card: React.FC<Props> = ({
             {
                 answers.map((answer, index)=> (
                 <button 
+                className="options"
                 key={index}
                 onClick={callback} 
                 disabled={userAnswers.length === questionNumber ? true: false} 
