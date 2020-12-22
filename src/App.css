@@ -52,6 +52,14 @@ button:hover{
 
 button:disabled{
     border: 1px solid var(--faded);
+    color: var(--faded);
+}
+
+button:disabled:hover {
+    border: 1px solid var(--faded);
+    color: var(--faded);
+    cursor: default;
+    background-color: var(--light);
 }
 
 .card-wrapper{
