@@ -6,6 +6,7 @@ import {Difficulty, fetchQuizQuestions} from './Api';
 import {QuestionState} from './Api';
 
 const TOTAL_QUESTIONS: number = 10;
+const INCREMENT: number = 5
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
   const [userAnswers, setUserAnswers] = useState<string[]>([]);
   const [difficulty, setDifficulty] = useState<Difficulty>(Difficulty.EASY);
   const [start, setStart] = useState(false);
+  const [isEnded, setIsEnded] = useState(false);
 
   const startQuiz = async () => {
     setIsGameover(false)
@@ -38,7 +40,7 @@ function App() {
 
   const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>): void => {
     const answer = e.currentTarget.value;
-    if (correctAnswers[questionNumber] === answer) setScore(prev => prev + 5);
+    if (correctAnswers[questionNumber] === answer) setScore(prev => prev + INCREMENT);
 
     setUserAnswers(prev => [...prev, answer]);
   };
@@ -46,7 +48,7 @@ function App() {
   const nextQuestion = () => {
     if (questionNumber === questions.length - 1) {
       setIsGameover(true);
-      setStart(false);
+      setIsEnded(true);
     } else{
       setQuestionNumber(prev => prev + 1);
     }    
@@ -63,13 +65,18 @@ function App() {
     }
 
     setStart(true);
-  }
+  };
+
+  const retryHandler = (): void => {
+    setIsEnded(false);
+    setStart(false);
+  };
 
   return (
     <div className="App">
       <h1>Zikoko Quiz</h1>
       {
-        !start ?
+        !start && isGameover ?
         <div className="difficulty">
           <button value={Difficulty.EASY} onClick={difficultyHandler}>EASY</button>
           <button value={Difficulty.MEDIUM} onClick={difficultyHandler}>MEDIUM</button>
@@ -79,7 +86,7 @@ function App() {
 
       }
       {
-        isGameover && start ?
+        isGameover && start && !isEnded ?
         <button className="start" onClick={startQuiz}>Start</button>
         : null
       }
@@ -88,7 +95,7 @@ function App() {
         : null
       }
       {
-        !isGameover && !isLoading ?
+        !isGameover && !isLoading && !isEnded ?
         <div>
           <p className="score">Score: {score}</p>
           <Card
@@ -107,6 +114,15 @@ function App() {
         <button className="next" onClick={nextQuestion}>Next Question</button>
         : null
       }
+      {
+        isEnded ?
+        <div>
+          <p className="end">Your final score is {score} / {TOTAL_QUESTIONS * INCREMENT}!!!</p>
+          <button className="retry" onClick={retryHandler}>Retry</button>
+        </div>
+        : null
+      }
+
     </div>
   );
 };
