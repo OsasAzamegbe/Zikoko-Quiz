@@ -20,16 +20,17 @@ const Card: React.FC<Props> = ({
         <div className="card">
             <p className="question-number">Question {questionNumber} / {totalQuestions}</p>
             <p className="question" dangerouslySetInnerHTML={{ __html: question}} />
-            {
-                answers.map((answer, index)=> (
-                <button 
-                className="options"
-                key={index}
-                onClick={callback} 
-                disabled={userAnswers.length === questionNumber ? true: false} 
-                value={answer} dangerouslySetInnerHTML={{ __html: answer}}  />))
-            }
-            
+            <div className="options-wrapper">
+                {
+                    answers.map((answer, index)=> (
+                    <button 
+                    className="options"
+                    key={index}
+                    onClick={callback} 
+                    disabled={userAnswers.length === questionNumber ? true: false} 
+                    value={answer} dangerouslySetInnerHTML={{ __html: answer}}  />))
+                }
+            </div>            
         </div>
     );
 };

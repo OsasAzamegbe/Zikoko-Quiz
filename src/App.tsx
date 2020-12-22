@@ -97,7 +97,7 @@ function App() {
       }
       {
         !isGameover && !isLoading && !isEnded ?
-        <div>
+        <div className="card-wrapper">
           <p className="score">Score: {score}</p>
           <Card
           question={questions[questionNumber].question}

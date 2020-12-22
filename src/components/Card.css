@@ -8,4 +8,22 @@
 .options{
     border-radius: 0%;
     width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.score{
+    font-size: 1.5rem;
+    font-weight: bolder;
+    margin: 0 0 36px 0;
+    font-family: monospace, 'Courier New', Courier;
+}
+
+.question-number{
+    padding: 12px;
+    font-size: 1.1rem;
+}
+
+.options-wrapper{
+    padding: 24px 0;
 }
