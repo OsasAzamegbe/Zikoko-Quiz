@@ -4,3 +4,7 @@
     align-items: center;
     flex-direction: column;
 }
+
+.options{
+    border-radius: 0%;
+}

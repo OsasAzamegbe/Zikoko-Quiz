@@ -51,7 +51,3 @@ button:hover{
 button:disabled{
     border: 1px solid var(--faded);
 }
-
-.options{
-    border-radius: 0%;
-}
