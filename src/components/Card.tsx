@@ -1,4 +1,5 @@
 import React from 'react';
+import './Card.css';
 
 type Props = {
     question: string;
@@ -16,7 +17,7 @@ const Card: React.FC<Props> = ({
 }) => {
 
     return (
-        <div>
+        <div className="card">
             <p className="question-number">Question {questionNumber} / {totalQuestions}</p>
             <p className="question" dangerouslySetInnerHTML={{ __html: question}} />
             {
